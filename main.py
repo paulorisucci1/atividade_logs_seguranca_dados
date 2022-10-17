@@ -1,17 +1,4 @@
 from Log_Reader import *
-log_archives = {
-    'system': '/var/log/syslog',
-    'auth': '/var/log/auth.log',
-    'boot': '/var/log/boot.log',
-    'kernel': '/var/log/kern.log',
-    'drivers': '/var/log/dmesg',
-    'fail_log': '/var/log/faillog',
-}
-
-
-def entry_has_amount_of_lines(entry):
-    return len(entry) > 1
-
 
 while True:
     print(''''Which log would you like to see?'
