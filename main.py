@@ -1,4 +1,4 @@
-from Entry import *
+from Log_Reader import *
 log_archives = {
     'system': '/var/log/syslog',
     'auth': '/var/log/auth.log',
@@ -24,6 +24,6 @@ while True:
     - fail_log: contains information all failed login attempts
     ''')
 
-    entry = Entry()
+    log_reader = Log_Reader()
 
-    entry.read_file()
+    log_reader.read_file()

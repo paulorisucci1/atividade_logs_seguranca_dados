@@ -1,5 +1,5 @@
 
-class Entry:
+class Log_Reader:
 
     def __init__(self):
         self.__desired_log = None
