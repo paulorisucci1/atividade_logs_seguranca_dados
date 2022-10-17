@@ -4,7 +4,7 @@ class Log_Reader:
     def __init__(self):
         self.__desired_log = None
         self.__start_line = None
-        self.__amount_of_lines = None
+        self.__finish_line = None
         self.__log_archives = {
             'system': '/var/log/syslog',
             'auth': '/var/log/auth.log',
@@ -21,20 +21,23 @@ class Log_Reader:
             self.__read_user_input()
 
             file = open(self.__log_archives[self.__desired_log])
-
-            if self.__start_line is not None and self.__amount_of_lines is not None:
-                for line in file.readlines()[self.__start_line:self.__amount_of_lines]:
-                    print(f'{line}')
-            elif self.__start_line is not None:
-                for line in file.readlines()[self.__start_line:]:
-                    print(f'{line}')
-            else:
-                for line in file.readlines():
-                    print(f'{line}')
+            self.__print_lines(file)
 
             file.close()
         except Exception as e:
             print(e)
+
+    def __print_lines(self, file):
+        amount_of_lines = self.__start_line + self.__finish_line
+        if self.__start_line is not None and self.__finish_line is not None:
+            for line in file.readlines()[self.__start_line:amount_of_lines]:
+                print(f'{line}')
+        elif self.__start_line is not None:
+            for line in file.readlines()[self.__start_line:]:
+                print(f'{line}')
+        else:
+            for line in file.readlines():
+                print(f'{line}')
 
     def __read_user_input(self):
         user_input = input('Type the chosen option, the start line and the amount of lines\nExample: auth 0 10\n')\
@@ -45,7 +48,7 @@ class Log_Reader:
         if len(user_input) > 1:
             self.__start_line = int(user_input[1])
         if len(user_input) > 2:
-            self.__amount_of_lines = int(user_input[2])
+            self.__finish_line = int(user_input[2])
 
 
     def __validate_input(self, user_input):
@@ -61,4 +64,4 @@ class Log_Reader:
     def __refresh_entries(self):
         self.__desired_log = None
         self.__start_line = None
-        self.__amount_of_lines = None
+        self.__finish_line = None
